@@ -14,7 +14,7 @@ use Yii;
  * @property string $country
  * @property string|null $zipcode
  *
- * @property Order $order
+ * @property Orders $order
  */
 class OrderAddress extends \yii\db\ActiveRecord
 {
@@ -36,7 +36,7 @@ class OrderAddress extends \yii\db\ActiveRecord
             [['order_id'], 'integer'],
             [['address', 'city', 'state', 'country', 'zipcode'], 'string', 'max' => 255],
             [['order_id'], 'unique'],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
     }
 
@@ -58,19 +58,19 @@ class OrderAddress extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Order]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\OrderQuery
+     * @return \yii\db\ActiveQuery|OrdersQuery
      */
     public function getOrder()
     {
-        return $this->hasOne(Order::className(), ['id' => 'order_id']);
+        return $this->hasOne(Orders::className(), ['id' => 'order_id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\OrderAddressQuery the active query used by this AR class.
+     * @return OrderAddressQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\OrderAddressQuery(get_called_class());
+        return new OrderAddressQuery(get_called_class());
     }
 }

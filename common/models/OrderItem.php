@@ -14,8 +14,7 @@ use Yii;
  * @property int $order_id
  * @property int $quantity
  *
- * @property Order $order
- * @property Product $product
+ * @property Orders $order
  */
 class OrderItem extends \yii\db\ActiveRecord
 {
@@ -37,8 +36,7 @@ class OrderItem extends \yii\db\ActiveRecord
             [['product_id', 'order_id', 'quantity'], 'integer'],
             [['unit_price'], 'number'],
             [['product_name'], 'string', 'max' => 255],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
     }
 
@@ -60,21 +58,11 @@ class OrderItem extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Order]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\query\OrderQuery
+     * @return \yii\db\ActiveQuery|\common\models\query\OrdersQuery
      */
     public function getOrder()
     {
-        return $this->hasOne(Order::className(), ['id' => 'order_id']);
-    }
-
-    /**
-     * Gets query for [[Product]].
-     *
-     * @return \yii\db\ActiveQuery|\common\models\query\ProductQuery
-     */
-    public function getProduct()
-    {
-        return $this->hasOne(Product::className(), ['id' => 'product_id']);
+        return $this->hasOne(Orders::className(), ['id' => 'order_id']);
     }
 
     /**
